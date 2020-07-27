@@ -197,6 +197,8 @@ def is_hybrid_property(model, attr_name):
         names = attr_name.split('.')
         last_model = model
         for i in range(len(names) - 1):
+            if not hasattr(last_model, names[i]):
+                continue
             attr = getattr(last_model, names[i])
             if is_association_proxy(attr):
                 attr = attr.remote_attr
